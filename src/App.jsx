@@ -1,5 +1,6 @@
 import Header from "./components/Header"
 import Form from "./components/Form";
+import ListadoPacientes from "./components/ListadoPacientes";
 
 function App() {
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <Header />
       <Form />
+      <ListadoPacientes />
     </>
   )
 }
