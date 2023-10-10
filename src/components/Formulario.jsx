@@ -11,7 +11,38 @@ function Formulario() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('Enviando Formulario ...');
+    //Custom validation by Beto --- Start
+    let campos = [
+      {
+        name: 'Nombre Mascota',
+        value: nombre
+      }, 
+      {
+        name: 'Nombre Propietario',
+        value: propietario
+      }, 
+      {
+        name: 'Email Propietario',
+        value: email
+      }, 
+      {
+        name: 'Fecha de Alta',
+        value: fecha
+      }, 
+      {
+        name: 'Síntomas',
+        value: sintomas
+      }];
+
+    for (let i = 0; i < campos.length; i++) {
+      if (campos[i].value === '') {
+        console.log(`El campo ${campos[i].name} esta vacio`);
+      }
+    }
+    //Custom validation by Beto --- End
+
+
+
 
   };
 
