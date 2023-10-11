@@ -1,48 +1,45 @@
 import { useState, useEffect } from "react";
 
-function Formulario() {
+function Formulario({pacientes, setPacientes}) {
 
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('');
   const [email, setEmail] = useState('');
   const [fecha, setFecha] = useState('');
   const [sintomas, setSintomas] = useState('');
+  const [error, setError] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //Custom validation by Beto --- Start
-    let campos = [
-      {
-        name: 'Nombre Mascota',
-        value: nombre
-      }, 
-      {
-        name: 'Nombre Propietario',
-        value: propietario
-      }, 
-      {
-        name: 'Email Propietario',
-        value: email
-      }, 
-      {
-        name: 'Fecha de Alta',
-        value: fecha
-      }, 
-      {
-        name: 'Síntomas',
-        value: sintomas
-      }];
-
-    for (let i = 0; i < campos.length; i++) {
-      if (campos[i].value === '') {
-        console.log(`El campo ${campos[i].name} esta vacio`);
-      }
+    if ([nombre, propietario, email, fecha, sintomas].includes('')) {
+      console.log('Hay al menos un campo vacio');
+      setError(true);
+      return;
     }
-    //Custom validation by Beto --- End
+
+    setError(false);
 
 
+    //Objeto de Paciente
+    const objetoPaciente = {
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas
+    }
 
+    console.log(objetoPaciente);
+
+    setPacientes([...pacientes, objetoPaciente]);
+
+    //Reiniciar formulario
+    setNombre('');
+    setPropietario('');
+    setEmail('');
+    setFecha('');
+    setSintomas('');
 
   };
 
@@ -60,6 +57,11 @@ function Formulario() {
           onSubmit={handleSubmit}
           className="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
         >
+          {error && (
+            <div className="bg-red-800 text-white text-center p-3 font-bold uppercase mb-3 rounded-md">
+              <p>Todos los campos son obligatorios</p>
+            </div>
+          )}
           <div className="mb-5">
             <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
               Nombre Mascota
